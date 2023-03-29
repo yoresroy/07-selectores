@@ -29,14 +29,14 @@
     </div>
 
 
-    <!--Región-->
+    <!--Fronteras-->
     <div class="row mb-3">
         <div class="col">
-            <label class="form-label">Continente:</label>
+            <label class="form-label">Fronteras:</label>
             <select class="form-control"
-                    formControlName="region">
-                <option value=""> -- Seleccione continente --- </option>
-                <option *ngFor="let region of regiones" [value]="region | lowercase"> {{region}} </option>
+                    formControlName="frontera">
+                <option value=""> -- Seleccione Fronterizo --- </option>
+                <option *ngFor="let frontera of fronteras" [value]="frontera"> {{frontera}} </option>
             </select>
         </div>
     </div>

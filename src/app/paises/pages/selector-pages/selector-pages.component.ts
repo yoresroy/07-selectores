@@ -15,11 +15,13 @@ export class SelectorPagesComponent implements OnInit {
   miFormulario : FormGroup = this.fb.group({
     region : [ '', Validators.required ],
     pais : [ '', Validators.required ],
+    frontera : [ '', Validators.required ],
   });
 
   //Llenar selectores
   regiones : string[] = [];
   paises : PaisSmall[] = [];
+  fronteras : string[] = [];
 
   constructor( 
   
@@ -44,6 +46,25 @@ export class SelectorPagesComponent implements OnInit {
         this.paises = paises; 
         console.log(paises)
        });
+
+
+        //Cuando cambie la región
+    this.miFormulario.get('pais')?.valueChanges
+    .pipe(
+      tap( () => {
+        this.fronteras = [];
+        this.miFormulario.get('frontera')?.reset('');
+      } ),
+      switchMap( codigo => this.paisesServicesService.getPaisPorCodigo(codigo) )
+    )
+    .subscribe( pais => {
+      if ( pais && pais?.length > 0 ) {
+        this.fronteras = pais[0].borders ;
+        console.log(pais)
+      } else {
+        this.fronteras = [];
+      }
+     });
 
 
   }
